@@ -1,0 +1,27 @@
+<mat-selection-list #posts>
+  <mat-list-option
+    *ngFor="let post of allBlogPosts"
+    [value]="post._id"
+    checkboxPosition="before"
+  >
+    {{ post.title }}
+  </mat-list-option>
+</mat-selection-list>
+
+<mat-card>
+  Options selected: {{ posts.selectedOptions.selected.length }}
+</mat-card>
+<mat-card>
+  <mat-card-actions>
+    <button
+      mat-button
+      color="warn"
+      (click)="deleteBlogPosts(posts.selectedOptions.selected)"
+      *ngIf="posts.selectedOptions.selected.length > 0"
+    >
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<app-blogpost-create></app-blogpost-create>
