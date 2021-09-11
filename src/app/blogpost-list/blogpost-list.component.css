@@ -16,3 +16,8 @@ mat-card img {
   margin: 0 16px;
   border: 2px solid green;
 }
+
+.mat-card > img {
+  width: 150px;
+  padding: 1em;
+}
