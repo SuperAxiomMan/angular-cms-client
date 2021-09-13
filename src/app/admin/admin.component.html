@@ -2,9 +2,14 @@
   <mat-list-option
     *ngFor="let post of allBlogPosts"
     [value]="post._id"
-    checkboxPosition="before"
-  >
-    {{ post.title }}
+    checkboxPosition="after"
+    disableRipple="true"
+    ><div class="select">
+      <button mat-button color="Primary">
+        <a [routerLink]="['/admin/blog-posts', post._id]">Edit</a>
+      </button>
+      <h4>{{ post.title }}</h4>
+    </div>
   </mat-list-option>
 </mat-selection-list>
 

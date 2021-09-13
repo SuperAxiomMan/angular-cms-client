@@ -27,10 +27,10 @@ export class BlogPostService {
   }
 
   dispatchBlogPostCreated(id: string) {
-    this.blogPostCreated.next(id);
+    this.blogPostCreated.next(id); //used to send messages to an observable
   }
 
-  handleBlogPostCreated() {
+  handleBlogPostCreated(): Observable<String> {
     return this.blogPostCreated.asObservable();
   }
 
@@ -41,6 +41,13 @@ export class BlogPostService {
   getBlogPostById(id: string): Observable<BlogPostModel> {
     return this.httpClient.get<BlogPostModel>(
       `${this.baseUrl}/blog-posts/${id}`
+    );
+  }
+
+  updateBlogPost(id: string, blogPost: BlogPostModel) {
+    console.log('called updateService')
+    return this.httpClient.put(
+      `${this.baseUrl}/blog-posts/${id}`,blogPost
     );
   }
 

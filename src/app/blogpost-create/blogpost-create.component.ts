@@ -61,12 +61,12 @@ export class BlogpostCreateComponent implements OnInit {
 
   handleSucess(data: object | any, formDirective: FormGroupDirective) {
     console.log('Post created', data);
-    this.creationForm.reset();
-    formDirective.resetForm();
-    this.blogPostService.dispatchBlogPostCreated(data._id);
+    this.creationForm.reset();//reset form
+    formDirective.resetForm();//reset required fields
+    this.blogPostService.dispatchBlogPostCreated(data._id);//sends message to admin-component
   }
 
   handleError(err: Error) {
-    console.log('error whil creating post', err);
+    console.log('error while creating post', err);
   }
 }

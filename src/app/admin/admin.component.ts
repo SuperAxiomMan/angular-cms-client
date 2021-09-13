@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   // blogposts$!: Observable<BlogPostModel[]>;
 
   allBlogPosts!: BlogPostModel[];
+  selectedId?: string;
 
   constructor(private blogpostService: BlogPostService) {}
 
