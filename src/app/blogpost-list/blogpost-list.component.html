@@ -9,8 +9,6 @@
   </mat-card-header>
   <img src="{{ imagePath + post.thumbnail }}" alt="{{ post.title }}" />
   <mat-card-content>
-    <p>
-      {{ post.content }}
-    </p>
+    <p [innerHTML]="post.content"></p>
   </mat-card-content>
 </mat-card>

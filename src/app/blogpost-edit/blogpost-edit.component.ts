@@ -1,15 +1,17 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BlogPostService } from '../blogpost.service';
 import { BlogPostModel } from '../models/blogpost.model';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-blogpost-edit',
   templateUrl: './blogpost-edit.component.html',
   styleUrls: ['./blogpost-edit.component.css'],
 })
-export class BlogpostEditComponent implements OnInit {
+export class BlogpostEditComponent implements OnInit,OnDestroy {
+  editor!: Editor;
   blogPostId!: string | any;
   blogPost!: BlogPostModel;
 
@@ -21,6 +23,7 @@ export class BlogpostEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.blogPostId = this.activatedRoute.snapshot.paramMap.get('id');
     this.blogPostService.getBlogPostById(this.blogPostId).subscribe(
       (data) => {
@@ -64,4 +67,9 @@ export class BlogpostEditComponent implements OnInit {
   handleError(err: Error) {
     console.log('Client : blog post update failed', err);
   }
+
+    // make sure to destroy the editor
+    ngOnDestroy(): void {
+      this.editor.destroy();
+    }
 }
