@@ -4,7 +4,6 @@
 }
 
 mat-card img {
-  width: 50%;
   padding-left: 15px;
 }
 
@@ -15,9 +14,4 @@ mat-card img {
 .mat-card-header-text {
   margin: 0 16px;
   border: 2px solid green;
-}
-
-.mat-card > img {
-  width: 150px;
-  padding: 1em;
 }

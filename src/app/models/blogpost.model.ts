@@ -4,4 +4,5 @@ export interface BlogPostModel {
   subtitle: string;
   content: string;
   image: string;
+  thumbnail: string;
 }
