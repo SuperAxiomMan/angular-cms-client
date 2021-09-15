@@ -6,11 +6,18 @@ import { UserModel } from './models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  baseUrl: string = 'http://localhost:3000/auth';
+  isAuthenticated: boolean = false;
+
   constructor(private httpClient: HttpClient) {}
 
-  baseUrl: string = 'http://localhost:3000/auth';
-
   login(user: UserModel) {
-    return this.httpClient.post<UserModel[]>(`${this.baseUrl}/login`, user);
+    this.isAuthenticated = true;
+    return this.httpClient.post<UserModel>(`${this.baseUrl}/login`, user);
+  }
+
+  logout() {
+    this.isAuthenticated = false;
+    return this.httpClient.get(`${this.baseUrl}/logout`);
   }
 }

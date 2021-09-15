@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { BlogPostService } from '../blogpost.service';
 import { BlogPostModel } from '../models/blogpost.model';
 
@@ -13,11 +15,18 @@ export class AdminComponent implements OnInit {
 
   allBlogPosts!: BlogPostModel[];
   selectedId?: string;
+  serverMessageError: string = '';
 
-  constructor(private blogpostService: BlogPostService) {}
+  constructor(
+    private blogpostService: BlogPostService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // this.blogposts$ = this.blogpostService.getBlogPosts();
+    if (!this.authService.isAuthenticated) {
+      this.router.navigate(['/auth']);
+    }
     this.blogpostService.getBlogPosts().subscribe((data) => {
       this.refresh(data);
 
@@ -57,7 +66,18 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  handleError(error: Error) {
-    console.log(error);
+  handleError(err: Error) {
+    this.serverMessageError = `Error ${err.message} - ${err.name}`
+    console.log(err);
+  }
+
+  logout() {
+    this.authService.logout().subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/auth']);
+      },
+      (err: Error) => console.log(err)
+    );
   }
 }
